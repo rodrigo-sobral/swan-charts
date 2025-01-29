@@ -203,6 +203,18 @@ rmmod nouveau
 kubectl create -f https://raw.githubusercontent.com/NVIDIA/k8s-device-plugin/1.0.0-beta4/nvidia-device-plugin.yml
 ```
 
+Install Falco for security monitoring, providing custom rules
+
+```bash
+helm upgrade --install falco \
+  --create-namespace --namespace falco \
+  --values falco-custom-rules.yaml \
+  --set falcosidekick.enabled=true \
+  --set falcosidekick.config.webhook.enabled=true \
+  --set falcosidekick.config.webui.url="http://falcosidekick-ui.falco.svc.cluster.local:2802" \
+  falcosecurity/falco
+```
+
 ### Demo of upstream JupyterHub (no SWAN, no EOS, no CVMFS)
 This option uses upstream [JupyterHub Helm Chart](https://jupyterhub.github.io/helm-chart/)
 
